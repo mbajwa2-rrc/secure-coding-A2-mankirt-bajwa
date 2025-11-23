@@ -12,10 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Bandit
-        uses: shundor/bandit-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          path: "."
-          level: high
-          confidence: high
-          exit_zero: true
+          python-version: "3.10"
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit
+        run: bandit -r .
